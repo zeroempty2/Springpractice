@@ -10,6 +10,5 @@ import java.util.List;
 public interface HomeworkRepository extends JpaRepository<Homework, Long> {
     List<Homework> findAll();
     List<HomeworkMapping> findAllById(Long id);
-
     PasswordMapping getPasswordById(Long id);
 }
