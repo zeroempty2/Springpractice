@@ -4,15 +4,9 @@ import com.sparta.homework.dto.HomeworkRequestDto;
 import com.sparta.homework.dto.HomeworkResponseByIdDto;
 import com.sparta.homework.dto.HomeworkResponseDto;
 import com.sparta.homework.entity.Homework;
-import com.sparta.homework.repository.HomeworkRepository;
 import com.sparta.homework.service.HomeworkService;
-import com.sparta.homework.repository.mapping.HomeworkMapping;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
