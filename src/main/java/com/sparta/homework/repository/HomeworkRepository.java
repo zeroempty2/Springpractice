@@ -5,6 +5,7 @@ import com.sparta.homework.repository.mapping.HomeworkMapping;
 import com.sparta.homework.repository.mapping.PasswordMapping;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface HomeworkRepository extends JpaRepository<Homework, Long> {
