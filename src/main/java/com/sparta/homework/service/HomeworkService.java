@@ -5,7 +5,6 @@ import com.sparta.homework.entity.Homework;
 import com.sparta.homework.repository.HomeworkRepository;
 import com.sparta.homework.repository.mapping.HomeworkMapping;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,7 @@ public class HomeworkService {
 
     @Transactional(readOnly = true)
     public List<Homework> getHomeworks(){
-        return homeworkRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+        return homeworkRepository.findAllByOrderByCreatedAtDesc();
     }
 
     @Transactional(readOnly = true)

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface HomeworkRepository extends JpaRepository<Homework, Long> {
-    List<Homework> findAll();
+    List<Homework> findAllByOrderByCreatedAtDesc();
     List<HomeworkMapping> findAllById(Long id);
     PasswordMapping getPasswordById(Long id);
 }
