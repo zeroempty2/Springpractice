@@ -1,16 +1,16 @@
 package com.sparta.homework.service;
 
 import com.sparta.homework.dto.HomeworkRequestDto;
+import com.sparta.homework.dto.HomeworkResponseByIdDto;
 import com.sparta.homework.dto.HomeworkResponseDto;
 import com.sparta.homework.entity.Homework;
 import com.sparta.homework.repository.HomeworkRepository;
-import com.sparta.homework.repository.mapping.HomeworkMapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-
 
 
 @Service
@@ -30,8 +30,12 @@ public class HomeworkService {
     }
 
     @Transactional(readOnly = true)
-    public List<HomeworkMapping> getSelectHomeworks(Long id){
-        return homeworkRepository.findAllById(id);
+    public HomeworkResponseByIdDto getSelectHomeworks(Long id){
+        List<Homework> homework = homeworkRepository.findAllById(id);
+        for (Homework homework1 : homework){
+            return new HomeworkResponseByIdDto(homework1.getUsername(), homework1.getContents(), homework1.getTitle(), homework1.getCreatedAt());
+        }
+        return null;
     }
 
     @Transactional

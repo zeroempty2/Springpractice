@@ -1,6 +1,7 @@
 package com.sparta.homework.controller;
 
 import com.sparta.homework.dto.HomeworkRequestDto;
+import com.sparta.homework.dto.HomeworkResponseByIdDto;
 import com.sparta.homework.dto.HomeworkResponseDto;
 import com.sparta.homework.entity.Homework;
 import com.sparta.homework.repository.HomeworkRepository;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,8 +28,8 @@ public class HomeworkController {
         return  homeworkService.getHomeworks();
     }
     @GetMapping("/api/show/{id}")
-    public List<HomeworkMapping> getSelectHomeworks(@PathVariable Long id){
-        return homeworkService.getSelectHomeworks(id);
+    public HomeworkResponseByIdDto getSelectHomeworks(@PathVariable Long id){
+       return homeworkService.getSelectHomeworks(id);
     }
     @PutMapping("/api/update/{id}")
     public String updateHomework(@PathVariable Long id, @RequestBody HomeworkRequestDto requestDto){
