@@ -29,13 +29,20 @@ public class HomeworkService {
         return new HomeworkResponseDto(response);
     }
 
+//    @Transactional(readOnly = true)
+//    public HomeworkResponseByIdDto getSelectHomeworks(Long id){
+//        List<Homework> homework = homeworkRepository.findAllById(id);
+//        for (Homework response : homework){
+//            return new HomeworkResponseByIdDto(response.getUsername(), response.getContents(), response.getTitle(), response.getCreatedAt());
+//        }
+//        return null;
+//    }
     @Transactional(readOnly = true)
     public HomeworkResponseByIdDto getSelectHomeworks(Long id){
-        List<Homework> homework = homeworkRepository.findAllById(id);
-        for (Homework homework1 : homework){
-            return new HomeworkResponseByIdDto(homework1.getUsername(), homework1.getContents(), homework1.getTitle(), homework1.getCreatedAt());
-        }
-        return null;
+        Homework homework = homeworkRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("아이디가 존재하지 않습니다")
+        );
+        return new HomeworkResponseByIdDto(homework.getUsername(), homework.getContents(), homework.getTitle(), homework.getCreatedAt());
     }
 
     @Transactional

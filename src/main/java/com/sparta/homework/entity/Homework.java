@@ -1,6 +1,6 @@
 package com.sparta.homework.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.sparta.homework.dto.HomeworkRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,7 +24,6 @@ public class Homework extends Timestamped{
     private String title;
 
     @Column(nullable = false)
-    @JsonIgnore
     private String password;
 
     public Homework(HomeworkRequestDto requestDto) {
