@@ -8,6 +8,8 @@ import com.sparta.homework.service.HomeworkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class HomeworkController {
@@ -18,7 +20,7 @@ public class HomeworkController {
         return homeworkService.createHomework(requestDto);
     }
     @GetMapping("/api/show")
-    public HomeworkResponseDto getHomeworks(){
+    public List<HomeworkResponseDto> getHomeworks(){
         return  homeworkService.getHomeworks();
     }
     @GetMapping("/api/show/{id}")

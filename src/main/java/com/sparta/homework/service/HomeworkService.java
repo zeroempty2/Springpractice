@@ -24,19 +24,14 @@ public class HomeworkService {
     }
 
     @Transactional(readOnly = true)
-    public HomeworkResponseDto getHomeworks(){
-        List<Homework> response = homeworkRepository.findAllByOrderByCreatedAtDesc();
-        return new HomeworkResponseDto(response);
+    public List<HomeworkResponseDto> getHomeworks(){
+        List<Homework> homework = homeworkRepository.findAllByOrderByCreatedAtDesc();
+        List<HomeworkResponseDto> homeworkResponse = new ArrayList<>();
+        for(Homework response : homework)
+            homeworkResponse.add(new HomeworkResponseDto(response.getId(), response.getUsername(), response.getContents(),response.getTitle(),response.getCreatedAt()));
+        return homeworkResponse;
     }
 
-//    @Transactional(readOnly = true)
-//    public HomeworkResponseByIdDto getSelectHomeworks(Long id){
-//        List<Homework> homework = homeworkRepository.findAllById(id);
-//        for (Homework response : homework){
-//            return new HomeworkResponseByIdDto(response.getUsername(), response.getContents(), response.getTitle(), response.getCreatedAt());
-//        }
-//        return null;
-//    }
     @Transactional(readOnly = true)
     public HomeworkResponseByIdDto getSelectHomeworks(Long id){
         Homework homework = homeworkRepository.findById(id).orElseThrow(
