@@ -42,25 +42,24 @@ public class HomeworkService {
 
     @Transactional
     public String update(Long id, HomeworkRequestDto requestDto) {
-        if(String.valueOf(homeworkRepository.getPasswordById(id).getPassword()).equals(requestDto.getPassword())){
             Homework homework = homeworkRepository.findById(id).orElseThrow(
                     () -> new IllegalArgumentException("아이디가 존재하지 않습니다")
             );
+        if(homework.getPassword().equals(requestDto.getPassword()))
             homework.update(requestDto);
-        }
-        else{
+        else
             return "비밀번호가 일치하지 않습니다";
-        }
         return "수정완료";
     }
     @Transactional
     public String delete(Long id, HomeworkRequestDto requestDto) {
-        if(String.valueOf(homeworkRepository.getPasswordById(id).getPassword()).equals(requestDto.getPassword())){
+        Homework homework = homeworkRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("아이디가 존재하지 않습니다")
+        );
+        if(homework.getPassword().equals(requestDto.getPassword()))
             homeworkRepository.deleteById(id);
-        }
-        else{
+        else
             return "비밀번호가 일치하지 않습니다";
-        }
         return "삭제완료";
     }
 }

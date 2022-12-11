@@ -1,10 +1,8 @@
 package com.sparta.homework.dto;
 
-import com.sparta.homework.entity.Homework;
 import lombok.Getter;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Getter
 public class HomeworkResponseByIdDto {
