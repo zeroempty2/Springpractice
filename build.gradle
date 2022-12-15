@@ -29,7 +29,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation'org.hibernate.validator:hibernate-validator:6.1.2.Final'
 	implementation'org.glassfish:jakarta.el:3.0.3'
-
+	implementation group: 'org.json', name: 'json', version: '20220924'
+	compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
 }
 
 tasks.named('test') {
