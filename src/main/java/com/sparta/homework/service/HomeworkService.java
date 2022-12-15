@@ -17,10 +17,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HomeworkService {
     private final HomeworkRepository homeworkRepository;
-    public Homework createHomework(HomeworkRequestDto requestDto){
+    public String createHomework(HomeworkRequestDto requestDto){
         Homework homework = new Homework(requestDto);
         homeworkRepository.save(homework);
-        return homework;
+        return "게시글 작성 완료";
     }
 
     @Transactional(readOnly = true)

@@ -15,23 +15,23 @@ import java.util.List;
 public class HomeworkController {
     private final HomeworkService homeworkService;
 
-    @PostMapping("/api/save")
-    public Homework createHomework(@RequestBody HomeworkRequestDto requestDto){
+    @PostMapping("/api/post")
+    public String createHomework(@RequestBody HomeworkRequestDto requestDto){
         return homeworkService.createHomework(requestDto);
     }
-    @GetMapping("/api/show")
+    @GetMapping("/api/posts")
     public List<HomeworkResponseDto> getHomeworks(){
         return  homeworkService.getHomeworks();
     }
-    @GetMapping("/api/show/{id}")
+    @GetMapping("/api/post/{id}")
     public HomeworkResponseByIdDto getSelectHomeworks(@PathVariable Long id){
        return homeworkService.getSelectHomeworks(id);
     }
-    @PutMapping("/api/update/{id}")
+    @PutMapping("/api/post/{id}")
     public String updateHomework(@PathVariable Long id, @RequestBody HomeworkRequestDto requestDto){
         return homeworkService.update(id,requestDto);
     }
-    @DeleteMapping("/api/delete/{id}")
+    @DeleteMapping("/api/post/{id}")
     public String deleteHomework(@PathVariable Long id, @RequestBody HomeworkRequestDto requestDto){
         return homeworkService.delete(id,requestDto);
     }
