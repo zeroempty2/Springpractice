@@ -23,16 +23,11 @@ public class Homework extends Timestamped{
     @Column(nullable = false)
     private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "USER_ID", nullable = false)
-    private User user;
 
-
-    public Homework(HomeworkRequestDto requestDto, Long userId, User user) {
+    public Homework(HomeworkRequestDto requestDto, Long userId) {
         this.contents = requestDto.getContents();
         this.title = requestDto.getTitle();
         this.userId = userId;
-        this.user = user;
     }
 
     public void update(HomeworkRequestDto requestDto) {

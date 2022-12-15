@@ -40,7 +40,7 @@ public class HomeworkService {
                     () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
             );
 
-            homeworkRepository.saveAndFlush(new Homework(requestDto, user.getId(),user));
+            homeworkRepository.saveAndFlush(new Homework(requestDto,user.getId()));
             return "게시글 작성 완료";
         }
         return "로그인 해 주십시오";
@@ -79,9 +79,9 @@ public class HomeworkService {
                     () -> new IllegalArgumentException("사용자가 존재하지 않습니다."));
 
             Homework homework = homeworkRepository.findByIdAndUserId(id, user.getId()).orElseThrow(
-                    () -> new NullPointerException("해당 게시글은 존재하지 않습니다.")
+                    () -> new NullPointerException("유효한 계정이 아니거나 게시글이 존재하지 않습니다.")
             );
-        if(homework.getUser().equals(user)){
+        if(homework.getUserId().equals(user.getId())){
                 homework.update(requestDto);
                 return "수정완료";
             }
@@ -108,9 +108,9 @@ public class HomeworkService {
                     () -> new IllegalArgumentException("사용자가 존재하지 않습니다."));
 
             Homework homework = homeworkRepository.findByIdAndUserId(id, user.getId()).orElseThrow(
-                    () -> new NullPointerException("해당 게시글은 존재하지 않습니다.")
+                    () -> new NullPointerException("유효한 계정이 아니거나 게시글이 존재하지 않습니다.")
             );
-            if(homework.getUser().equals(user)){
+            if(homework.getUserId().equals(user.getId())){
                 homeworkRepository.deleteById(id);
                 return "삭제완료";
             }
