@@ -13,7 +13,8 @@ public class Homework extends Timestamped{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    @Column(nullable = false)
+    private String username;
     @Column(nullable = false)
     private String contents;
 
@@ -24,10 +25,11 @@ public class Homework extends Timestamped{
     private Long userId;
 
 
-    public Homework(HomeworkRequestDto requestDto, Long userId) {
+    public Homework(HomeworkRequestDto requestDto, Long userId, String username) {
         this.contents = requestDto.getContents();
         this.title = requestDto.getTitle();
         this.userId = userId;
+        this.username = username;
     }
 
     public void update(HomeworkRequestDto requestDto) {
