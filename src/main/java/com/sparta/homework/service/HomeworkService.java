@@ -51,7 +51,7 @@ public class HomeworkService {
         List<Homework> homework = homeworkRepository.findAllByOrderByCreatedAtDesc();
         List<HomeworkResponseDto> homeworkResponse = new ArrayList<>();
         for (Homework response : homework)
-            homeworkResponse.add(new HomeworkResponseDto(response.getId(), response.getContents(), response.getTitle(), response.getCreatedAt(), response.getUsername()));
+            homeworkResponse.add(new HomeworkResponseDto(response.getContents(), response.getTitle(), response.getCreatedAt(), response.getUsername()));
         return homeworkResponse;
     }
 
