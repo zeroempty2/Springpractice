@@ -6,8 +6,10 @@ import com.sparta.homework.dto.HomeworkResponseDto;
 import com.sparta.homework.entity.Homework;
 import com.sparta.homework.entity.User;
 import com.sparta.homework.jwt.JwtUtil;
+import com.sparta.homework.repository.CommentRepository;
 import com.sparta.homework.repository.HomeworkRepository;
 import com.sparta.homework.repository.UserRepository;
+import com.sparta.homework.repository.mapping.Comments;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class HomeworkService {
     private final HomeworkRepository homeworkRepository;
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
+    private final CommentRepository commentRepository;
 
     public HomeworkRequestDto createHomework(HomeworkRequestDto requestDto, HttpServletRequest request) {
         String token = jwtUtil.resolveToken(request);
@@ -62,7 +65,8 @@ public class HomeworkService {
         Homework homework = homeworkRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 존재하지 않습니다")
         );
-        return new HomeworkResponseByIdDto(homework.getContents(), homework.getTitle(), homework.getCreatedAt(), homework.getUsername());
+        List<Comments> comments = commentRepository.findAllByHomeworkId(id);
+        return new HomeworkResponseByIdDto(homework.getContents(), homework.getTitle(), homework.getCreatedAt(), homework.getUsername(),comments);
     }
 
     @Transactional
