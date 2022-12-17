@@ -18,7 +18,7 @@ public class User {
     @Column(nullable = false)
     private String username;
     @Size(min = 8, max = 15)
-    @Pattern(regexp = "^[0-9a-zA-z]*$",message = "최소 8자, 최대15자 영어와 숫자만 입력할 수 있습니다")
+    @Pattern(regexp = "^[^\\t\\r\\n\\v\\f]*$",message = "최소 8자, 최대15자 영어와 숫자만 입력할 수 있습니다")
     @Column(nullable = false)
     private String password;
 
