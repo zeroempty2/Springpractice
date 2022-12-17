@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Entity
 @NoArgsConstructor
@@ -23,6 +26,9 @@ public class Homework extends Timestamped{
 
     @Column(nullable = false)
     private Long userId;
+
+    @OneToMany
+    private List<Comment> comments = new ArrayList<>();
 
 
     public Homework(HomeworkRequestDto requestDto, Long userId, String username) {
