@@ -3,7 +3,9 @@ package com.sparta.homework.controller;
 import com.sparta.homework.dto.HomeworkRequestDto;
 import com.sparta.homework.dto.HomeworkResponseByIdDto;
 import com.sparta.homework.dto.HomeworkResponseDto;
-import com.sparta.homework.responseMessageData.Message;
+import com.sparta.homework.responseMessageData.DefaultRes;
+import com.sparta.homework.responseMessageData.ResponseMessage;
+import com.sparta.homework.responseMessageData.StatusCode;
 import com.sparta.homework.responseMessageData.StatusEnum;
 import com.sparta.homework.service.HomeworkService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +21,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class HomeworkController {
     private final HomeworkService homeworkService;
-    private final Message message;
+    private final DefaultRes defaultRes;
 
     @PostMapping("/post")
     public HomeworkRequestDto createHomework(@RequestBody HomeworkRequestDto requestDto, HttpServletRequest request){
@@ -38,10 +40,10 @@ public class HomeworkController {
         return homeworkService.update(id,requestDto,request);
     }
     @DeleteMapping("/post/{id}")
-    public ResponseEntity<Message> deleteHomework(@PathVariable Long id, HttpServletRequest request){
+    public ResponseEntity<DefaultRes> deleteHomework(@PathVariable Long id, HttpServletRequest request){
         homeworkService.delete(id,request);
-        message.setStatus(StatusEnum.OK);
-        message.setMessage("삭제 완료");
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        defaultRes.setStatusCode(StatusCode.OK);
+        defaultRes.setResponseMessage(ResponseMessage.DELETE_SUCCESS);
+        return new ResponseEntity<>(defaultRes, HttpStatus.OK);
     }
 }

@@ -2,7 +2,9 @@ package com.sparta.homework.controller;
 
 import com.sparta.homework.dto.LoginRequestDto;
 import com.sparta.homework.dto.SignupRequestDto;
-import com.sparta.homework.responseMessageData.Message;
+import com.sparta.homework.responseMessageData.DefaultRes;
+import com.sparta.homework.responseMessageData.ResponseMessage;
+import com.sparta.homework.responseMessageData.StatusCode;
 import com.sparta.homework.responseMessageData.StatusEnum;
 import com.sparta.homework.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,23 +21,23 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final Message message;
+    private final DefaultRes defaultRes;
 
 
     @PostMapping("/signup")
-    public ResponseEntity<Message> signup(@Valid @RequestBody SignupRequestDto signupRequestDto) {
+    public ResponseEntity<DefaultRes> signup(@Valid @RequestBody SignupRequestDto signupRequestDto) {
         userService.signup(signupRequestDto);
-        message.setStatus(StatusEnum.OK);
-        message.setMessage("생성 완료");
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        defaultRes.setStatusCode(StatusCode.OK);
+        defaultRes.setResponseMessage(ResponseMessage.CREATED_USER);
+        return new ResponseEntity<>(defaultRes, HttpStatus.OK);
     }
 
     @ResponseBody
     @PostMapping("/login")
-    public ResponseEntity<Message> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public ResponseEntity<DefaultRes> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         userService.login(loginRequestDto, response);
-        message.setStatus(StatusEnum.OK);
-        message.setMessage("로그인 성공");
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        defaultRes.setStatusCode(StatusCode.OK);
+        defaultRes.setResponseMessage(ResponseMessage.LOGIN_SUCCESS);
+        return new ResponseEntity<>(defaultRes, HttpStatus.OK);
     }
 }
