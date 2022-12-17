@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sparta.homework.entity.UserRoleEnum.ADMIN;
+
 
 @Service
 @RequiredArgsConstructor
@@ -78,10 +80,16 @@ public class HomeworkService {
             User user = userRepository.findByUsername(claims.getSubject()).orElseThrow(
                     () -> new IllegalArgumentException("사용자가 존재하지 않습니다."));
 
-            Homework homework = homeworkRepository.findByIdAndUserId(id, user.getId()).orElseThrow(
+
+            Homework homework = homeworkRepository.findById(id).orElseThrow(
                     () -> new NullPointerException("유효한 계정이 아니거나 게시글이 존재하지 않습니다.")
             );
-            if (homework.getUserId().equals(user.getId())) {
+
+            if(user.getRole().equals(ADMIN)){
+                homework.update(requestDto);
+                return requestDto;
+            }
+            else if (homework.getUserId().equals(user.getId())) {
                 homework.update(requestDto);
                 return requestDto;
             } else {
@@ -106,10 +114,13 @@ public class HomeworkService {
             User user = userRepository.findByUsername(claims.getSubject()).orElseThrow(
                     () -> new IllegalArgumentException("사용자가 존재하지 않습니다."));
 
-            Homework homework = homeworkRepository.findByIdAndUserId(id, user.getId()).orElseThrow(
+            Homework homework = homeworkRepository.findById(id).orElseThrow(
                     () -> new NullPointerException("유효한 계정이 아니거나 게시글이 존재하지 않습니다.")
             );
-            if (homework.getUserId().equals(user.getId())) {
+            if(user.getRole().equals(ADMIN)){
+                homeworkRepository.deleteById(id);
+            }
+            else if (homework.getUserId().equals(user.getId())) {
                 homeworkRepository.deleteById(id);
             } else {
                 throw new IllegalArgumentException("유효한 계정이 아닙니다");
