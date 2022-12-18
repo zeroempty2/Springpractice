@@ -1,7 +1,6 @@
 package com.sparta.homework.entity;
 
 import com.sparta.homework.dto.CommentRequestDto;
-import com.sparta.homework.repository.CommentRepository;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,11 +22,20 @@ public class Comment extends Timestamped{
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
+// HOMEWORK 엔티티에서 mappedby "homework" 해줄시 HOMEWORK_COMMENTS 테이블 생성되지 않음
+    @ManyToOne
+    @JoinColumn(name = "HOMEWORK_ID", nullable = false)
+    private Homework homework;
 
-    public Comment(CommentRequestDto commentRequestDto, User user,String username){
+
+    public Comment(CommentRequestDto commentRequestDto, User user,String username,Homework homework){
         this.comment = commentRequestDto.getComment();
         this.user = user;
         this.username = username;
+        this.homework = homework;
+    }
+    public void update(CommentRequestDto requestDto) {
+        this.comment = requestDto.getComment();
     }
 
 }
