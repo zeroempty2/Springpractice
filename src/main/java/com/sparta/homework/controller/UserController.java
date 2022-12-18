@@ -5,7 +5,6 @@ import com.sparta.homework.dto.SignupRequestDto;
 import com.sparta.homework.responseMessageData.DefaultRes;
 import com.sparta.homework.responseMessageData.ResponseMessage;
 import com.sparta.homework.responseMessageData.StatusCode;
-import com.sparta.homework.responseMessageData.StatusEnum;
 import com.sparta.homework.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;

@@ -6,7 +6,6 @@ import com.sparta.homework.dto.HomeworkResponseDto;
 import com.sparta.homework.responseMessageData.DefaultRes;
 import com.sparta.homework.responseMessageData.ResponseMessage;
 import com.sparta.homework.responseMessageData.StatusCode;
-import com.sparta.homework.responseMessageData.StatusEnum;
 import com.sparta.homework.service.HomeworkService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

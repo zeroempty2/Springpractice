@@ -1,6 +1,6 @@
 package com.sparta.homework.responseMessageData;
 
-import lombok.Getter;
+
 
 
 public class ResponseMessage {
