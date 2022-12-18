@@ -27,7 +27,7 @@ public class Homework extends Timestamped{
     @Column(nullable = false)
     private Long userId;
 
-    @OneToMany
+    @OneToMany(mappedBy = "homework", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
 
@@ -38,10 +38,10 @@ public class Homework extends Timestamped{
         this.username = username;
     }
 
-    public void update(HomeworkRequestDto requestDto) {
-        this.contents = requestDto.getContents();
-        this.title = requestDto.getTitle();
-    }
+        public void update(HomeworkRequestDto requestDto) {
+            this.contents = requestDto.getContents();
+            this.title = requestDto.getTitle();
+        }
 
     public void addComments(Comment comment) {
         this.comments.add(comment);
