@@ -14,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +46,9 @@ public class CommentService {
                     () -> new IllegalArgumentException("게시글이 존재하지 않습니다")
             );
 
-            commentRepository.saveAndFlush(new Comment(requestDto,homework,user));
+            Comment comment = new Comment(requestDto,user,user.getUsername());
+            homework.addComments(comment);
+            commentRepository.save(comment);
             return requestDto;
         }
         throw new IllegalArgumentException("로그인 해 주십시오");

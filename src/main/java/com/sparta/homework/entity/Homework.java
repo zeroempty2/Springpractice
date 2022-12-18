@@ -43,4 +43,8 @@ public class Homework extends Timestamped{
         this.title = requestDto.getTitle();
     }
 
+    public void addComments(Comment comment) {
+        this.comments.add(comment);
+    }
+
 }
