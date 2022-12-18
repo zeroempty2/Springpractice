@@ -2,6 +2,7 @@ package com.sparta.homework.dto;
 
 import lombok.Getter;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 public class HomeworkResponseDto {
@@ -10,11 +11,14 @@ public class HomeworkResponseDto {
     private LocalDate createdAt;
     private String username;
 
-    public HomeworkResponseDto(String contents, String title, LocalDate createdAt,String username) {
+    List<CommentResponseDto> comments;
+
+    public HomeworkResponseDto(String contents, String title, LocalDate createdAt,String username, List<CommentResponseDto> comments) {
         this.contents = contents;
         this.title = title;
         this.createdAt = createdAt;
         this.username = username;
+        this.comments = comments;
     }
 }
 

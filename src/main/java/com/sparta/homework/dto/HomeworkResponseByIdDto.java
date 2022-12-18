@@ -1,6 +1,5 @@
 package com.sparta.homework.dto;
 
-import com.sparta.homework.repository.mapping.Comments;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -12,9 +11,10 @@ public class HomeworkResponseByIdDto {
     private String title;
     private LocalDate createdAt;
     private String username;
-    private List<Comments> comments;
+    List<CommentResponseDto> comments;
+//    private List<Comments> comments;
 
-    public HomeworkResponseByIdDto(String title, String contents, LocalDate createdAt, String username, List<Comments> comments) {
+    public HomeworkResponseByIdDto(String title, String contents, LocalDate createdAt, String username, List<CommentResponseDto> comments){
         this.title = title;
         this.contents = contents;
         this.createdAt = createdAt;

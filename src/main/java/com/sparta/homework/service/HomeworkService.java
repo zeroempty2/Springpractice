@@ -1,15 +1,16 @@
 package com.sparta.homework.service;
 
+import com.sparta.homework.dto.CommentResponseDto;
 import com.sparta.homework.dto.HomeworkRequestDto;
 import com.sparta.homework.dto.HomeworkResponseByIdDto;
 import com.sparta.homework.dto.HomeworkResponseDto;
+import com.sparta.homework.entity.Comment;
 import com.sparta.homework.entity.Homework;
 import com.sparta.homework.entity.User;
 import com.sparta.homework.jwt.JwtUtil;
 import com.sparta.homework.repository.CommentRepository;
 import com.sparta.homework.repository.HomeworkRepository;
 import com.sparta.homework.repository.UserRepository;
-import com.sparta.homework.repository.mapping.Comments;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import static com.sparta.homework.entity.UserRoleEnum.ADMIN;
 
@@ -55,8 +57,14 @@ public class HomeworkService {
     public List<HomeworkResponseDto> getHomeworks() {
         List<Homework> homework = homeworkRepository.findAllByOrderByCreatedAtDesc();
         List<HomeworkResponseDto> homeworkResponse = new ArrayList<>();
-        for (Homework response : homework)
-            homeworkResponse.add(new HomeworkResponseDto(response.getContents(), response.getTitle(), response.getCreatedAt(), response.getUsername()));
+        for (Homework response : homework){
+            List<CommentResponseDto> comments = new ArrayList<>();
+            List<Comment> commentList = response.getComments();
+            for(Comment comment : commentList){
+                comments.add(new CommentResponseDto(comment.getCreatedAt(),comment.getUsername(),comment.getComment()));
+            }
+            homeworkResponse.add(new HomeworkResponseDto(response.getContents(), response.getTitle(), response.getCreatedAt(), response.getUsername(),comments));
+        }
         return homeworkResponse;
     }
 
@@ -65,7 +73,11 @@ public class HomeworkService {
         Homework homework = homeworkRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 존재하지 않습니다")
         );
-        List<Comments> comments = commentRepository.findAllByHomeworkId(id);
+        List<CommentResponseDto> comments = new ArrayList<>();
+        List<Comment> commentList = homework.getComments();
+        for(Comment comment : commentList){
+            comments.add(new CommentResponseDto(comment.getCreatedAt(),comment.getUsername(),comment.getComment()));
+        }
         return new HomeworkResponseByIdDto(homework.getContents(), homework.getTitle(), homework.getCreatedAt(), homework.getUsername(),comments);
     }
 
