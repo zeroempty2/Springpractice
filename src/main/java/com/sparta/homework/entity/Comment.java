@@ -16,17 +16,18 @@ public class Comment extends Timestamped{
 
     @Column(nullable = false)
     private String comment;
-    @ManyToOne
-    @JoinColumn(name = "Homework_ID", nullable = false)
-    private Homework homework;
+
+    @Column(nullable = false)
+    private String username;
+
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
-    public Comment(CommentRequestDto commentRequestDto, Homework homework, User user){
+    public Comment(CommentRequestDto commentRequestDto, User user,String username){
         this.comment = commentRequestDto.getComment();
-        this.homework = homework;
         this.user = user;
+        this.username = username;
     }
 
 }
