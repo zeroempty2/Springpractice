@@ -1,6 +1,7 @@
 package com.sparta.homework.entity;
 
 import com.sparta.homework.dto.CommentRequestDto;
+import com.sparta.homework.dto.CommentResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,9 @@ public class Comment extends Timestamped{
         this.user = user;
         this.username = username;
         this.post = post;
+    }
+    public CommentResponseDto getResponseComment(Comment comment){
+        return new CommentResponseDto(comment.getCreatedAt(),comment.getUsername(),comment.getComment());
     }
     public void update(CommentRequestDto requestDto) {
         this.comment = requestDto.getComment();
