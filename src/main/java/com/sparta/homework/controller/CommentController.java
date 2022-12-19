@@ -1,15 +1,14 @@
 package com.sparta.homework.controller;
 
 import com.sparta.homework.dto.CommentRequestDto;
+import com.sparta.homework.exception.InvalidTokenException;
+import com.sparta.homework.exception.NotLoginException;
 import com.sparta.homework.jwt.JwtUtil;
 import com.sparta.homework.responseMessageData.DefaultRes;
-import com.sparta.homework.responseMessageData.ResponseMessage;
-import com.sparta.homework.responseMessageData.StatusCode;
 import com.sparta.homework.service.CommentService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,12 +27,12 @@ public class CommentController {
             if (jwtUtil.validateToken(token)) {
                 claims = jwtUtil.getUserInfoFromToken(token);
             } else {
-                throw new IllegalArgumentException("유효한 토큰이 아닙니다.");
+                throw new InvalidTokenException();
             }
             String userNameToken = claims.getSubject();
             return commentService.addComment(requestDto, userNameToken, id);
         }
-        throw new IllegalArgumentException("로그인 해 주십시오");
+        throw new NotLoginException();
     }
     @PutMapping("/comment/{commentId}")
     public CommentRequestDto updateComment(@RequestBody CommentRequestDto requestDto, HttpServletRequest request, @PathVariable Long id, @PathVariable Long commentId){
@@ -43,12 +42,12 @@ public class CommentController {
             if (jwtUtil.validateToken(token)) {
                 claims = jwtUtil.getUserInfoFromToken(token);
             } else {
-                throw new IllegalArgumentException("유효한 토큰이 아닙니다.");
+                throw new InvalidTokenException();
             }
             String userNameToken = claims.getSubject();
             return commentService.updateComment(commentId,id,requestDto,userNameToken);
         }
-        throw new IllegalArgumentException("로그인 해 주십시오");
+        throw new NotLoginException();
     }
     @DeleteMapping("/comment/{commentId}")
     public ResponseEntity<DefaultRes> deleteComment(HttpServletRequest request, @PathVariable Long id, @PathVariable Long commentId){
@@ -58,14 +57,12 @@ public class CommentController {
             if (jwtUtil.validateToken(token)) {
                 claims = jwtUtil.getUserInfoFromToken(token);
             } else {
-                throw new IllegalArgumentException("유효한 토큰이 아닙니다.");
+                throw new InvalidTokenException();
             }
             String userNameToken = claims.getSubject();
             commentService.deleteComment(commentId,id,userNameToken);
-            defaultRes.setStatusCode(StatusCode.OK);
-            defaultRes.setResponseMessage(ResponseMessage.DELETE_SUCCESS);
-            return new ResponseEntity<>(defaultRes, HttpStatus.OK);
+            return defaultRes.deleteOK();
         }
-        throw new IllegalArgumentException("로그인 해 주십시오");
+        throw new NotLoginException();
     }
 }

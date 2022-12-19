@@ -24,15 +24,15 @@ public class Comment extends Timestamped{
     private User user;
 // HOMEWORK 엔티티에서 mappedby "homework" 해줄시 HOMEWORK_COMMENTS 테이블 생성되지 않음
     @ManyToOne
-    @JoinColumn(name = "HOMEWORK_ID", nullable = false)
-    private Homework homework;
+    @JoinColumn(name = "POST_ID", nullable = false)
+    private Post post;
 
 
-    public Comment(CommentRequestDto commentRequestDto, User user,String username,Homework homework){
+    public Comment(CommentRequestDto commentRequestDto, User user, String username, Post post){
         this.comment = commentRequestDto.getComment();
         this.user = user;
         this.username = username;
-        this.homework = homework;
+        this.post = post;
     }
     public void update(CommentRequestDto requestDto) {
         this.comment = requestDto.getComment();
