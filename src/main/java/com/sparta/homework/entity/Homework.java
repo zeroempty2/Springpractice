@@ -49,4 +49,8 @@ public class Homework extends Timestamped{
         this.comments.add(comment);
     }
 
+    public boolean isWriter(Long userId){
+    return getUserId().equals(userId);
+    }
+
 }
