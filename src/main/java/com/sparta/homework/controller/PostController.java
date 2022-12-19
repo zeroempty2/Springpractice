@@ -1,7 +1,6 @@
 package com.sparta.homework.controller;
 
 import com.sparta.homework.dto.PostRequestDto;
-import com.sparta.homework.dto.PostResponseByIdDto;
 import com.sparta.homework.dto.PostResponseDto;
 import com.sparta.homework.exception.InvalidTokenException;
 import com.sparta.homework.exception.NotLoginException;
@@ -44,7 +43,7 @@ public class PostController {
         return  postService.getPosts();
     }
     @GetMapping("/post/{id}")
-    public PostResponseByIdDto getSelectPosts(@PathVariable Long id){
+    public PostResponseDto getSelectPosts(@PathVariable Long id){
        return postService.getSelectPosts(id);
     }
     @PutMapping("/post/{id}")
