@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static com.sparta.homework.entity.UserRoleEnum.ADMIN;
+
 @Getter
 @NoArgsConstructor
 @Entity(name = "users")
@@ -30,6 +32,8 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
-
+    }
+    public boolean isADMIN(){
+    return getRole().equals(ADMIN);
     }
 }
