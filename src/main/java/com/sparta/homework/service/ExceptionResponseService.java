@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ExceptionResponseService {
    private final ExceptionResponse exceptionResponse;
-    public ExceptionResponse getErrorResponse(int code, String message){
-        exceptionResponse.code = code;
+    public ExceptionResponse getErrorResponse(int statusCode, String message){
+        exceptionResponse.statusCode = statusCode;
         exceptionResponse.message = message;
         exceptionResponse.success = false;
         return exceptionResponse;

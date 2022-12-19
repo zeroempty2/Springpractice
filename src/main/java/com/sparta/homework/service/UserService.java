@@ -24,7 +24,6 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
-
     private static final String ADMIN_TOKEN = "ABC";
 
     @Transactional

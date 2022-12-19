@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class ExceptionResponse {
-    public int code;
+    public int statusCode;
     public String message;
     public boolean success;
 }
