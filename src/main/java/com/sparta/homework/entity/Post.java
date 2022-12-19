@@ -1,7 +1,9 @@
 package com.sparta.homework.entity;
 
 
+import com.sparta.homework.dto.CommentResponseDto;
 import com.sparta.homework.dto.PostRequestDto;
+import com.sparta.homework.dto.PostResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,6 +53,10 @@ public class Post extends Timestamped{
 
     public boolean isWriter(Long userId){
     return getUserId().equals(userId);
+    }
+
+    public PostResponseDto getResponsePost(Post post, List<CommentResponseDto>comments){
+        return new PostResponseDto(post.getContents(),post.getUsername(),post.getCreatedAt(), post.getTitle(),comments);
     }
 
 }
