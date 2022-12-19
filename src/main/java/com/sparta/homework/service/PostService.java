@@ -2,7 +2,6 @@ package com.sparta.homework.service;
 
 import com.sparta.homework.dto.CommentResponseDto;
 import com.sparta.homework.dto.PostRequestDto;
-import com.sparta.homework.dto.PostResponseByIdDto;
 import com.sparta.homework.dto.PostResponseDto;
 import com.sparta.homework.entity.Comment;
 import com.sparta.homework.entity.Post;
@@ -38,28 +37,31 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<PostResponseDto> getPosts() {
         List<Post> posts = postRepository.findAllByOrderByCreatedAtDesc();
+
         List<PostResponseDto> postResponse = new ArrayList<>();
+
         for (Post response : posts){
             List<CommentResponseDto> comments = new ArrayList<>();
             List<Comment> commentList = response.getComments();
+
             for(Comment comment : commentList){
-                comments.add(new CommentResponseDto(comment.getCreatedAt(),comment.getUsername(),comment.getComment()));
+                comments.add(comment.getResponseComment(comment));
             }
-            postResponse.add(new PostResponseDto(response.getContents(), response.getTitle(), response.getCreatedAt(), response.getUsername(),comments));
+            postResponse.add(response.getResponsePost(response,comments));
         }
         return postResponse;
     }
 
     @Transactional(readOnly = true)
-    public PostResponseByIdDto getSelectPosts(Long id) {
+    public PostResponseDto getSelectPosts(Long id) {
         Post post = postRepository.findById(id).orElseThrow(NotFoundPostException::new);
 
         List<CommentResponseDto> comments = new ArrayList<>();
         List<Comment> commentList = post.getComments();
         for(Comment comment : commentList){
-            comments.add(new CommentResponseDto(comment.getCreatedAt(),comment.getUsername(),comment.getComment()));
+            comments.add(comment.getResponseComment(comment));
         }
-        return new PostResponseByIdDto(post.getContents(), post.getTitle(), post.getCreatedAt(), post.getUsername(),comments);
+        return post.getResponsePost(post,comments);
     }
 
     @Transactional
