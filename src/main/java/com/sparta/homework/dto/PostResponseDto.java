@@ -1,8 +1,9 @@
 package com.sparta.homework.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -11,14 +12,15 @@ public class PostResponseDto {
     private String contents;
     @ApiModelProperty(example = "제목")
     private String title;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @ApiModelProperty(example = "생성일")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     @ApiModelProperty(example = "이름")
     private String username;
     @ApiModelProperty(example = "댓글 리스트")
     List<CommentResponseDto> comments;
 
-    public PostResponseDto(String contents, String title, LocalDate createdAt, String username, List<CommentResponseDto> comments) {
+    public PostResponseDto(String contents, String title, LocalDateTime createdAt, String username, List<CommentResponseDto> comments) {
         this.contents = contents;
         this.title = title;
         this.createdAt = createdAt;

@@ -8,7 +8,6 @@ import com.sparta.homework.jwt.JwtUtil;
 import com.sparta.homework.responseMessageData.DefaultRes;
 import com.sparta.homework.service.PostService;
 import io.jsonwebtoken.Claims;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
