@@ -1,9 +1,10 @@
 # ERD
 ![image](https://user-images.githubusercontent.com/117061586/208656062-27715d54-7efa-45be-bab6-90f6fe201310.png)
-#API
+# API
+
 http://localhost:8080/swagger-ui/index.html
 ![image](https://user-images.githubusercontent.com/117061586/208656309-c555a829-02aa-4de2-a513-31eb58512bf0.png)
-#질문 답변
+# 질문 답변
 1. 처음 설계한 API 명세서에 변경사항이 있었나요? 변경 되었다면 어떤 점 때문 일까요? 첫 설계의 중요성에 대해 작성해 주세요!
 -새로 만든 계정 생성과 로그인 때문에 API를 추가해야 했다. 첫 설계때 각종 기능을 고려해서 설계해야 할 것 같다.
 2.ERD를 먼저 설계한 후 Entity를 개발했을 때 어떤 점이 도움이 되셨나요?
