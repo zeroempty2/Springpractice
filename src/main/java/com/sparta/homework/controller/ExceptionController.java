@@ -73,5 +73,29 @@ public class ExceptionController {
         log.info(e.getMessage());
         return exceptionResponseService.getErrorResponse(Exception.PLEASE_LOGIN.getStatusCode(),Exception.PLEASE_LOGIN.getMessage());
     }
+    @ExceptionHandler(ExpiredJwtTokenException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    private ExceptionResponse expiredJwtTokenException(ExpiredJwtTokenException e){
+        log.info(e.getMessage());
+        return exceptionResponseService.getErrorResponse(Exception.EXPIRED_JWT_TOKEN.getStatusCode(),Exception.EXPIRED_JWT_TOKEN.getMessage());
+    }
+    @ExceptionHandler(InvalidJwtSignatureException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    private ExceptionResponse invalidJwtSignatureException(InvalidJwtSignatureException e){
+        log.info(e.getMessage());
+        return exceptionResponseService.getErrorResponse(Exception.INVALID_JWT_SIGNATURE.getStatusCode(),Exception.INVALID_JWT_SIGNATURE.getMessage());
+    }
+    @ExceptionHandler(JwtClaimsIsEmptyException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    private ExceptionResponse expiredJwtTokenException(JwtClaimsIsEmptyException e){
+        log.info(e.getMessage());
+        return exceptionResponseService.getErrorResponse(Exception.JWT_CLAIMS_IS_EMPTY.getStatusCode(),Exception.JWT_CLAIMS_IS_EMPTY.getMessage());
+    }
+    @ExceptionHandler(UnsupportedJwtTokenException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    private ExceptionResponse expiredJwtTokenException(UnsupportedJwtTokenException e){
+        log.info(e.getMessage());
+        return exceptionResponseService.getErrorResponse(Exception.UNSUPPORTED_JWT_TOKEN.getStatusCode(),Exception.UNSUPPORTED_JWT_TOKEN.getMessage());
+    }
 
 }

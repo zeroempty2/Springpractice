@@ -14,7 +14,11 @@ public enum Exception {
     NOT_FOUND_COMMENT(400,"댓글을 찾을 수 없습니다"),
     IS_NOT_ADMIN_TOKEN(400,"관리자 토큰이 일치하지 않습니다"),
     INVALID_PASSWORD(400,"비밀번호가 일치하지 않습니다"),
-    PLEASE_LOGIN(400,"로그인 해 주십시오");
+    PLEASE_LOGIN(400,"로그인 해 주십시오"),
+    INVALID_JWT_SIGNATURE(400, "Invalid JWT signature, 유효하지 않는 JWT 서명 입니다."),
+    EXPIRED_JWT_TOKEN(400, "Expired JWT token, 만료된 JWT token 입니다."),
+    UNSUPPORTED_JWT_TOKEN(400,"Unsupported JWT token, 지원되지 않는 JWT 토큰 입니다."),
+    JWT_CLAIMS_IS_EMPTY(400,"JWT claims is empty, 잘못된 JWT 토큰 입니다.");
 
 
     private final int statusCode;

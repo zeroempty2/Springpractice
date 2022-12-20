@@ -1,6 +1,10 @@
 package com.sparta.homework.jwt;
 
 import com.sparta.homework.entity.UserRoleEnum;
+import com.sparta.homework.exception.ExpiredJwtTokenException;
+import com.sparta.homework.exception.InvalidJwtSignatureException;
+import com.sparta.homework.exception.JwtClaimsIsEmptyException;
+import com.sparta.homework.exception.UnsupportedJwtTokenException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -65,15 +69,14 @@ public class JwtUtil {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (SecurityException | MalformedJwtException e) {
-            log.info("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
+            throw new InvalidJwtSignatureException();
         } catch (ExpiredJwtException e) {
-            log.info("Expired JWT token, 만료된 JWT token 입니다.");
+            throw new ExpiredJwtTokenException();
         } catch (UnsupportedJwtException e) {
-            log.info("Unsupported JWT token, 지원되지 않는 JWT 토큰 입니다.");
+            throw new UnsupportedJwtTokenException();
         } catch (IllegalArgumentException e) {
-            log.info("JWT claims is empty, 잘못된 JWT 토큰 입니다.");
+            throw new JwtClaimsIsEmptyException();
         }
-        return false;
     }
 
     // 토큰에서 사용자 정보 가져오기
