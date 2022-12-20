@@ -18,7 +18,8 @@ public enum Exception {
     INVALID_JWT_SIGNATURE(400, "Invalid JWT signature, 유효하지 않는 JWT 서명 입니다."),
     EXPIRED_JWT_TOKEN(400, "Expired JWT token, 만료된 JWT token 입니다."),
     UNSUPPORTED_JWT_TOKEN(400,"Unsupported JWT token, 지원되지 않는 JWT 토큰 입니다."),
-    JWT_CLAIMS_IS_EMPTY(400,"JWT claims is empty, 잘못된 JWT 토큰 입니다.");
+    JWT_CLAIMS_IS_EMPTY(400,"JWT claims is empty, 잘못된 JWT 토큰 입니다."),
+    INVALID_PATTERN(400,"username은 최소 4자, 최대 10자 영어소문자와 숫자만 입력할 수 있고, password는 최소 8자, 최대15자 영어 대소문자, 특수문자를 입력할 수 있습니다.");
 
 
     private final int statusCode;
