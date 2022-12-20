@@ -1,10 +1,7 @@
 package com.sparta.homework.jwt;
 
 import com.sparta.homework.entity.UserRoleEnum;
-import com.sparta.homework.exception.ExpiredJwtTokenException;
-import com.sparta.homework.exception.InvalidJwtSignatureException;
-import com.sparta.homework.exception.JwtClaimsIsEmptyException;
-import com.sparta.homework.exception.UnsupportedJwtTokenException;
+import com.sparta.homework.exception.*;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
@@ -69,7 +66,7 @@ public class JwtUtil {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
-        } catch (SecurityException | MalformedJwtException e) {
+        } catch (SecurityException | MalformedJwtException | SignatureException e) {
             throw new InvalidJwtSignatureException();
         } catch (ExpiredJwtException e) {
             throw new ExpiredJwtTokenException();
@@ -83,6 +80,18 @@ public class JwtUtil {
     // 토큰에서 사용자 정보 가져오기
     public Claims getUserInfoFromToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+    }
+    public String isValidToken(String token) {
+        Claims claims;
+        if (token != null) {
+            if (validateToken(token)) {
+                claims = getUserInfoFromToken(token);
+                return claims.getSubject();
+            } else {
+                throw new InvalidTokenException();
+            }
+        }
+        throw new NotLoginException();
     }
 
 }
