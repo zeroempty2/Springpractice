@@ -38,7 +38,7 @@ public class Comment extends Timestamped{
         this.post = post;
     }
     public CommentResponseDto getResponseComment(Comment comment){
-        return new CommentResponseDto(comment.getCreatedAt(),comment.getUsername(),comment.getComment());
+        return new CommentResponseDto(comment.getCreatedAt(),comment.getModifiedAt(),comment.getUsername(),comment.getComment());
     }
     public void update(CommentRequestDto requestDto) {
         this.comment = requestDto.getComment();

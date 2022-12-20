@@ -17,10 +17,14 @@ public class CommentResponseDto {
     private String username;
     @ApiModelProperty(example = "댓글")
     private String comment;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @ApiModelProperty(example = "수정일")
+    private LocalDateTime modifiedAt;
 
-    public CommentResponseDto(LocalDateTime createdAt, String username, String comment) {
+    public CommentResponseDto(LocalDateTime createdAt, LocalDateTime modifiedAt, String username, String comment) {
         this.createdAt = createdAt;
         this.username = username;
         this.comment = comment;
+        this.modifiedAt = modifiedAt;
     }
 }

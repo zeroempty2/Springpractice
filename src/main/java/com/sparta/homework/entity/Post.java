@@ -59,7 +59,7 @@ public class Post extends Timestamped{
     }
 
     public PostResponseDto getResponsePost(Post post, List<CommentResponseDto>comments){
-        return new PostResponseDto(post.getContents(),post.getUsername(),post.getCreatedAt(), post.getTitle(),comments);
+        return new PostResponseDto(post.getContents(),post.getUsername(),post.getCreatedAt(), post.getModifiedAt(),post.getTitle(),comments);
     }
 
 }
