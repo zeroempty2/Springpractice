@@ -1,14 +1,15 @@
-package com.sparta.homework.controller;
+package com.sparta.homework.exception;
 
-import com.sparta.homework.exception.*;
-import com.sparta.homework.exception.Exception;
-import com.sparta.homework.service.ExceptionResponseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @RestControllerAdvice
@@ -98,4 +99,10 @@ public class ExceptionController {
         return exceptionResponseService.getErrorResponse(Exception.UNSUPPORTED_JWT_TOKEN.getStatusCode(),Exception.UNSUPPORTED_JWT_TOKEN.getMessage());
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ExceptionResponse methodValidException(MethodArgumentNotValidException e, HttpServletRequest request){
+        log.warn("MethodArgumentNotValidException 발생 url:{}, trace:{}",request.getRequestURI(), e.getStackTrace());
+        log.info(e.getMessage());
+        return exceptionResponseService.makeMethodArgumentNotValidExceptionResponse(e.getBindingResult());
+    }
 }
