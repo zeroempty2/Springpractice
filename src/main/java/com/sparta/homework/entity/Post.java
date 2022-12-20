@@ -32,7 +32,7 @@ public class Post extends Timestamped{
     @Column(nullable = false)
     private Long userId;
 
-    //{@OneToMany List<Comment>}가 단방향이 아니기 때문에 mappedBy추가, Comment가 삭제되면 Homework의 List<Comment>도 삭제될수 있도록 orphanRemoval = true로 바꿔줌,
+    //{@OneToMany List<Comment>}가 단방향이 아니기 때문에 mappedBy추가, Comment가 삭제되면 Homework의 코멘트 정보도 삭제될수 있도록 orphanRemoval = true로 바꿔줌,
     // Homework가 삭제되면 Homework의 Comment도 모두 삭제될 수 있도록 cascade = CascadeType.REMOVE해줌
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
@@ -49,10 +49,6 @@ public class Post extends Timestamped{
             this.contents = requestDto.getContents();
             this.title = requestDto.getTitle();
         }
-
-    public void addComments(Comment comment) {
-        this.comments.add(comment);
-    }
 
     public boolean isWriter(Long userId){
     return getUserId().equals(userId);
