@@ -2,7 +2,7 @@
 ![image](https://user-images.githubusercontent.com/117061586/208656062-27715d54-7efa-45be-bab6-90f6fe201310.png)
 # API
 
-http://localhost:8080/swagger-ui/index.html
+스프링 부트 실행 후 http://localhost:8080/swagger-ui/index.html
 ![image](https://user-images.githubusercontent.com/117061586/208656309-c555a829-02aa-4de2-a513-31eb58512bf0.png)
 # 질문 답변
 1. 처음 설계한 API 명세서에 변경사항이 있었나요? 변경 되었다면 어떤 점 때문 일까요? 첫 설계의 중요성에 대해 작성해 주세요!
