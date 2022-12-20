@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-@Data
 @Getter
 @Component
 public class DefaultRes {
@@ -20,32 +19,32 @@ public class DefaultRes {
     }
     public ResponseEntity<DefaultRes> deletePostOk(){
         DefaultRes defaultRes = new DefaultRes();
-        defaultRes.setStatusCode(StatusCode.OK);
-        defaultRes.setMessage(ResponseMessage.DELETE_SUCCESS);
-        defaultRes.setSuccess(true);
-        return new ResponseEntity<>(defaultRes, HttpStatus.OK);
+        defaultRes.statusCode = StatusCode.OK;
+        defaultRes.message = ResponseMessage.DELETE_SUCCESS;
+        defaultRes.success = true;
+        return new ResponseEntity<>(defaultRes,HttpStatus.OK);
     }
     public ResponseEntity<DefaultRes> signupOK(){
         DefaultRes defaultRes = new DefaultRes();
-        defaultRes.setStatusCode(StatusCode.OK);
-        defaultRes.setMessage(ResponseMessage.CREATED_USER);
-        defaultRes.setSuccess(true);
+        defaultRes.statusCode = StatusCode.OK;
+        defaultRes.message = ResponseMessage.CREATED_USER;
+        defaultRes.success = true;
         return new ResponseEntity<>(defaultRes, HttpStatus.OK);
     }
 
     public ResponseEntity<DefaultRes> loginOK(){
         DefaultRes defaultRes = new DefaultRes();
-        defaultRes.setStatusCode(StatusCode.OK);
-        defaultRes.setMessage(ResponseMessage.LOGIN_SUCCESS);
-        defaultRes.setSuccess(true);
+        defaultRes.statusCode = StatusCode.OK;
+        defaultRes.message = ResponseMessage.LOGIN_SUCCESS;
+        defaultRes.success = true;
         return new ResponseEntity<>(defaultRes, HttpStatus.OK);
     }
 
     public ResponseEntity<DefaultRes> deleteOK(){
         DefaultRes defaultRes = new DefaultRes();
-        defaultRes.setStatusCode(StatusCode.OK);
-        defaultRes.setMessage(ResponseMessage.DELETE_SUCCESS);
-        defaultRes.setSuccess(true);
+        defaultRes.statusCode = StatusCode.OK;
+        defaultRes.message = ResponseMessage.DELETE_SUCCESS;
+        defaultRes.success = true;
         return new ResponseEntity<>(defaultRes, HttpStatus.OK);
     }
 
