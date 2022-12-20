@@ -68,7 +68,6 @@ public class PostController {
         }
         throw new NotLoginException();
     }
-
     @DeleteMapping("/post/{id}")
     @ApiOperation(value = "게시글 삭제", notes = "선택한 게시글을 삭제한다")
     public ResponseEntity<DefaultRes> deletePost(@PathVariable Long id, HttpServletRequest request){
