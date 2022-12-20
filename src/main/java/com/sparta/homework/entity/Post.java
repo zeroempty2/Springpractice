@@ -4,10 +4,13 @@ package com.sparta.homework.entity;
 import com.sparta.homework.dto.CommentResponseDto;
 import com.sparta.homework.dto.PostRequestDto;
 import com.sparta.homework.dto.PostResponseDto;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 

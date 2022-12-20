@@ -10,13 +10,12 @@ import com.sparta.homework.exception.IsNotAdminTokenException;
 import com.sparta.homework.exception.NotFoundUserException;
 import com.sparta.homework.jwt.JwtUtil;
 import com.sparta.homework.repository.UserRepository;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 @Service

@@ -2,9 +2,11 @@ package com.sparta.homework.entity;
 
 import com.sparta.homework.dto.CommentRequestDto;
 import com.sparta.homework.dto.CommentResponseDto;
-import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Getter
 @Entity

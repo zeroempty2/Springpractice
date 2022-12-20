@@ -1,9 +1,10 @@
 package com.sparta.homework.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 import static com.sparta.homework.entity.UserRoleEnum.ADMIN;
 
