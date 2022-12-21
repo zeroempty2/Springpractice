@@ -29,7 +29,7 @@ public class PostService {
     public PostRequestDto createPost(PostRequestDto requestDto, String userInfo) {
             User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
 
-            postRepository.saveAndFlush(new Post(requestDto, user.getId(), user.getUsername()));
+            postRepository.saveAndFlush(new Post(requestDto, user));
             return requestDto;
         }
 

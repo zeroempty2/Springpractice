@@ -22,15 +22,11 @@ public class Post extends Timestamped{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
-    private String username;
-    @Column(nullable = false)
     private String contents;
-
     @Column(nullable = false)
     private String title;
-
-    @Column(nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
     // mappedby "Post" 해줄시 Post_COMMENTS 테이블 생성되지 않음
     //{@OneToMany List<Comment>}가 단방향이 아니기 때문에 mappedBy추가, Comment가 삭제되면 Post의 코멘트 정보도 삭제될수 있도록 orphanRemoval = true로 바꿔줌,
     // Post가 삭제되면 Post의 Comment도 모두 삭제될 수 있도록 cascade = CascadeType.REMOVE해줌 /cascade는영속성 전이이다.
@@ -38,11 +34,10 @@ public class Post extends Timestamped{
     private List<Comment> comments = new ArrayList<>();
 
 
-    public Post(PostRequestDto requestDto, Long userId, String username) {
+    public Post(PostRequestDto requestDto,User user) {
         this.contents = requestDto.getContents();
         this.title = requestDto.getTitle();
-        this.userId = userId;
-        this.username = username;
+        this.user = user;
     }
 
         public void update(PostRequestDto requestDto) {
@@ -51,11 +46,11 @@ public class Post extends Timestamped{
         }
 
     public boolean isWriter(Long userId){
-    return getUserId().equals(userId);
+    return getUser().getId().equals(userId);
     }
 
     public PostResponseDto getResponsePost(Post post, List<CommentResponseDto>comments){
-        return new PostResponseDto(post.getContents(),post.getTitle(),post.getCreatedAt(), post.getModifiedAt(),post.getUsername(),comments);
+        return new PostResponseDto(post.getContents(),post.getTitle(),post.getCreatedAt(), post.getModifiedAt(),post.getUser().getUsername(),comments);
     }
 
 }

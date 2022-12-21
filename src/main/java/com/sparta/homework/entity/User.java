@@ -25,6 +25,7 @@ public class User {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
+    //User를 가지고 게시글을 조회한다거나 코멘트를 조회하는 등의 기능은 만들지 않았기때문에 Post나 Comment의 @ManyToOne은 해주지 않았음
 
     public User(String username, String password, UserRoleEnum role) {
         this.username = username;
