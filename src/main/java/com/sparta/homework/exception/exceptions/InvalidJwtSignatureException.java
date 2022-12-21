@@ -1,4 +1,4 @@
-package com.sparta.homework.exception;
+package com.sparta.homework.exception.exceptions;
 
 public class InvalidJwtSignatureException extends SecurityException{
     public InvalidJwtSignatureException() {super();
