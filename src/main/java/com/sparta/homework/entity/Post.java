@@ -46,8 +46,8 @@ public class Post extends Timestamped{
             this.title = requestDto.getTitle();
         }
 
-    public boolean isWriter(Long userId){
-    return getUser().getId().equals(userId);
+    public boolean isWriter(User user){
+    return getUser().getId().equals(user.getId());
     }
 
     public PostResponseDto getResponsePost(Post post, List<CommentResponseDto>comments){

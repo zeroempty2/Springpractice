@@ -75,7 +75,7 @@ public class PostService {
                 post.update(requestDto);
                 return requestDto;
             }
-            else if (post.isWriter(user.getId())) {
+            else if (post.isWriter(user)) {
                 post.update(requestDto);
                 return requestDto;
             } else {
@@ -93,7 +93,7 @@ public class PostService {
             if(user.isADMIN()){
                 postRepository.deleteById(id);
             }
-            else if (post.isWriter(user.getId())) {
+            else if (post.isWriter(user)) {
                 postRepository.deleteById(id);
             } else {
                 throw new InvalidWriterException();

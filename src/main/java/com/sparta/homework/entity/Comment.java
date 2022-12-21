@@ -40,7 +40,7 @@ public class Comment extends Timestamped{
         this.comment = requestDto.getComment();
     }
 
-    public boolean isWriter(Long userId){
-        return getUser().getId().equals(userId);
+    public boolean isWriter(User user){
+        return getUser().getId().equals(user.getId());
     }
 }

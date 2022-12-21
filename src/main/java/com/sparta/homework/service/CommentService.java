@@ -49,7 +49,7 @@ public class CommentService {
                 comment.update(requestDto);
                 return requestDto;
             }
-            else if (comment.isWriter(user.getId())) {
+            else if (comment.isWriter(user)) {
                 comment.update(requestDto);
                 return requestDto;
             } else {
@@ -67,7 +67,7 @@ public class CommentService {
             if(user.isADMIN()){
                 commentRepository.delete(comment);
             }
-            else if (comment.isWriter(user.getId())) {
+            else if (comment.isWriter(user)) {
                 commentRepository.delete(comment);
             } else {
                 throw new InvalidWriterException();
