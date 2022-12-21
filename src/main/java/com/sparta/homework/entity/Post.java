@@ -31,9 +31,9 @@ public class Post extends Timestamped{
 
     @Column(nullable = false)
     private Long userId;
-
-    //{@OneToMany List<Comment>}가 단방향이 아니기 때문에 mappedBy추가, Comment가 삭제되면 Homework의 코멘트 정보도 삭제될수 있도록 orphanRemoval = true로 바꿔줌,
-    // Homework가 삭제되면 Homework의 Comment도 모두 삭제될 수 있도록 cascade = CascadeType.REMOVE해줌
+    // mappedby "Post" 해줄시 Post_COMMENTS 테이블 생성되지 않음
+    //{@OneToMany List<Comment>}가 단방향이 아니기 때문에 mappedBy추가, Comment가 삭제되면 Post의 코멘트 정보도 삭제될수 있도록 orphanRemoval = true로 바꿔줌,
+    // Post가 삭제되면 Post의 Comment도 모두 삭제될 수 있도록 cascade = CascadeType.REMOVE해줌
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 

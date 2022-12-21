@@ -25,7 +25,7 @@ public class Comment extends Timestamped{
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
-// HOMEWORK 엔티티에서 mappedby "homework" 해줄시 HOMEWORK_COMMENTS 테이블 생성되지 않음
+
     @ManyToOne
     @JoinColumn(name = "POST_ID", nullable = false)
     private Post post;
