@@ -15,11 +15,11 @@ public class PostResponseDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @ApiModelProperty(example = "생성일")
     private LocalDateTime createdAt;
-    @ApiModelProperty(example = "이름")
-    private String username;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @ApiModelProperty(example = "수정일")
     private LocalDateTime modifiedAt;
+    @ApiModelProperty(example = "이름")
+    private String username;
     @ApiModelProperty(example = "댓글 리스트")
     List<CommentResponseDto> comments;
 
