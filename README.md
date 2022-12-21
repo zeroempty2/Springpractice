@@ -1,6 +1,6 @@
 스프링부트 2.7.6 사용
 # ERD
-![image](https://user-images.githubusercontent.com/117061586/208818031-7d1c2a1a-6b5f-4bd5-9a71-52a56e7ae605.png)
+![image](https://user-images.githubusercontent.com/117061586/208818568-f3b487ee-c7e7-43ab-8da8-82cbedb954d9.png)
 # API
 
 스프링 부트 실행 후 http://localhost:8080/swagger-ui/index.html
