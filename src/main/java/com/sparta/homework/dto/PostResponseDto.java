@@ -17,20 +17,19 @@ public class PostResponseDto {
     private LocalDateTime createdAt;
     @ApiModelProperty(example = "이름")
     private String username;
-    @ApiModelProperty(example = "댓글 리스트")
-    List<CommentResponseDto> comments;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @ApiModelProperty(example = "수정일")
     private LocalDateTime modifiedAt;
+    @ApiModelProperty(example = "댓글 리스트")
+    List<CommentResponseDto> comments;
 
     public PostResponseDto(String contents, String title, LocalDateTime createdAt, LocalDateTime modifiedAt, String username, List<CommentResponseDto> comments) {
         this.contents = contents;
         this.title = title;
         this.createdAt = createdAt;
         this.username = username;
-        this.comments = comments;
         this.modifiedAt = modifiedAt;
+        this.comments = comments;
     }
 }
 
