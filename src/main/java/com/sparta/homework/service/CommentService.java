@@ -27,8 +27,8 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public CommentRequestDto addComment(CommentRequestDto requestDto,String userNameToken,Long id) {
-           User user = userRepository.findByUsername(userNameToken).orElseThrow(NotFoundUserException::new);
+    public CommentRequestDto addComment(CommentRequestDto requestDto,String userInfo,Long id) {
+           User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
 
             Post post = postRepository.findById(id).orElseThrow(NotFoundPostException::new);
 
@@ -38,8 +38,8 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentRequestDto updateComment(Long commentId, Long id, CommentRequestDto requestDto, String userNameToken) {
-            User user = userRepository.findByUsername(userNameToken).orElseThrow(NotFoundUserException::new);
+    public CommentRequestDto updateComment(Long commentId, Long id, CommentRequestDto requestDto, String userInfo) {
+            User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
 
             postRepository.findById(id).orElseThrow(NotFoundPostException::new);
 
@@ -57,8 +57,8 @@ public class CommentService {
             }
         }
     @Transactional
-    public void deleteComment(Long commentId, Long id, String userNameToken) {
-            User user = userRepository.findByUsername(userNameToken).orElseThrow(NotFoundUserException::new);
+    public void deleteComment(Long commentId, Long id, String userInfo) {
+            User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
 
             postRepository.findById(id).orElseThrow(NotFoundPostException::new);
 

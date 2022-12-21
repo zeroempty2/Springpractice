@@ -24,23 +24,23 @@ public class CommentController {
     @ApiOperation(value = "댓글 작성", notes = "댓글을 작성한다.")
     public CommentRequestDto addComment(@RequestBody CommentRequestDto requestDto, HttpServletRequest request, @PathVariable Long id) {
         String token = jwtUtil.resolveToken(request);
-        String userNameToken = jwtUtil.isValidToken(token);
-        return commentService.addComment(requestDto, userNameToken, id);
+        String userInfo = jwtUtil.isValidToken(token);
+        return commentService.addComment(requestDto, userInfo, id);
         }
 
     @PutMapping("/comment/{commentId}")
     @ApiOperation(value = "댓글 수정", notes = "댓글을 수정한다.")
     public CommentRequestDto updateComment(@RequestBody CommentRequestDto requestDto, HttpServletRequest request, @PathVariable Long id, @PathVariable Long commentId){
         String token = jwtUtil.resolveToken(request);
-        String userNameToken = jwtUtil.isValidToken(token);
-        return commentService.updateComment(commentId,id,requestDto,userNameToken);
+        String userInfo = jwtUtil.isValidToken(token);
+        return commentService.updateComment(commentId,id,requestDto,userInfo);
         }
     @DeleteMapping("/comment/{commentId}")
     @ApiOperation(value = "댓글 삭제", notes = "댓글을 삭제한다.")
     public ResponseEntity<DefaultRes> deleteComment(HttpServletRequest request, @PathVariable Long id, @PathVariable Long commentId){
         String token = jwtUtil.resolveToken(request);
-        String userNameToken = jwtUtil.isValidToken(token);
-        commentService.deleteComment(commentId,id,userNameToken);
+        String userInfo = jwtUtil.isValidToken(token);
+        commentService.deleteComment(commentId,id,userInfo);
         return defaultRes.deleteOK();
         }
 }

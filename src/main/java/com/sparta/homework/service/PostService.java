@@ -26,8 +26,8 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    public PostRequestDto createPost(PostRequestDto requestDto, String userNameToken) {
-            User user = userRepository.findByUsername(userNameToken).orElseThrow(NotFoundUserException::new);
+    public PostRequestDto createPost(PostRequestDto requestDto, String userInfo) {
+            User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
 
             postRepository.saveAndFlush(new Post(requestDto, user.getId(), user.getUsername()));
             return requestDto;
@@ -65,9 +65,9 @@ public class PostService {
     }
 
     @Transactional
-    public PostRequestDto update(Long id, PostRequestDto requestDto, String userNameToken) {
+    public PostRequestDto update(Long id, PostRequestDto requestDto, String userInfo) {
 
-            User user = userRepository.findByUsername(userNameToken).orElseThrow(NotFoundUserException::new);
+            User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
 
             Post post = postRepository.findById(id).orElseThrow(NotFoundPostException::new);
 
@@ -85,8 +85,8 @@ public class PostService {
 
 
     @Transactional
-    public void delete(Long id, String userNameToken) {
-            User user = userRepository.findByUsername(userNameToken).orElseThrow(NotFoundUserException::new);
+    public void delete(Long id, String userInfo) {
+            User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
 
             Post post = postRepository.findById(id).orElseThrow(NotFoundPostException::new);
 

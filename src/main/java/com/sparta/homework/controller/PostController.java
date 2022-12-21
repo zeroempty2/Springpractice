@@ -27,8 +27,8 @@ public class PostController {
     @ApiOperation(value = "게시글 작성", notes = "게시글을 작성한다.")
     public PostRequestDto createPost(@RequestBody PostRequestDto requestDto, HttpServletRequest request) {
         String token = jwtUtil.resolveToken(request);
-        String userNameToken = jwtUtil.isValidToken(token);
-        return postService.createPost(requestDto, userNameToken);
+        String userInfo = jwtUtil.isValidToken(token);
+        return postService.createPost(requestDto, userInfo);
         }
 
     @GetMapping("/posts")
@@ -45,15 +45,15 @@ public class PostController {
     @ApiOperation(value = "게시글 수정", notes = "선택한 게시글을 수정한다")
     public PostRequestDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto, HttpServletRequest request){
         String token = jwtUtil.resolveToken(request);
-        String userNameToken = jwtUtil.isValidToken(token);
-        return postService.update(id,requestDto,userNameToken);
+        String userInfo = jwtUtil.isValidToken(token);
+        return postService.update(id,requestDto,userInfo);
         }
     @DeleteMapping("/post/{id}")
     @ApiOperation(value = "게시글 삭제", notes = "선택한 게시글을 삭제한다")
     public ResponseEntity<DefaultRes> deletePost(@PathVariable Long id, HttpServletRequest request){
         String token = jwtUtil.resolveToken(request);
-        String userNameToken = jwtUtil.isValidToken(token);
-        postService.delete(id,userNameToken);
+        String userInfo = jwtUtil.isValidToken(token);
+        postService.delete(id,userInfo);
         return defaultRes.deletePostOk();
         }
 }
