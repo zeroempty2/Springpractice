@@ -33,7 +33,7 @@ public class CommentService {
             Post post = postRepository.findById(id).orElseThrow(NotFoundPostException::new);
 
             Comment comment = new Comment(requestDto,user,user.getUsername(), post);
-            commentRepository.saveAndFlush(comment);
+            commentRepository.save(comment);
             return requestDto;
     }
 
