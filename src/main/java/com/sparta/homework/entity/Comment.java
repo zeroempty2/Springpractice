@@ -22,11 +22,11 @@ public class Comment extends Timestamped{
     @Column(nullable = false)
     private String username;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID", nullable = false)
     private Post post;
 
