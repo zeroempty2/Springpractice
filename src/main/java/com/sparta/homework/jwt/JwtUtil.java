@@ -1,7 +1,7 @@
 package com.sparta.homework.jwt;
 
 import com.sparta.homework.entity.UserRoleEnum;
-import com.sparta.homework.exception.*;
+import com.sparta.homework.exception.exceptions.*;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
