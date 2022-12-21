@@ -26,6 +26,7 @@ public class Post extends Timestamped{
     @Column(nullable = false)
     private String title;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     private User user;
     // mappedby "Post" 해줄시 Post_COMMENTS 테이블 생성되지 않음
     //{@OneToMany List<Comment>}가 단방향이 아니기 때문에 mappedBy추가, Comment가 삭제되면 Post의 코멘트 정보도 삭제될수 있도록 orphanRemoval = true로 바꿔줌,
