@@ -1,3 +1,4 @@
+스프링부트 2.7.6 사용
 # ERD
 ![image](https://user-images.githubusercontent.com/117061586/208656062-27715d54-7efa-45be-bab6-90f6fe201310.png)
 # API
