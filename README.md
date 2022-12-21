@@ -1,6 +1,7 @@
 스프링부트 2.7.6 사용
 # ERD
 ![image](https://user-images.githubusercontent.com/117061586/208839108-ce0ea256-fc69-4c3c-959d-ecc4e8816fe7.png)
+
 의문점 - Post에 User객체를 넣어줬을때 코드상으로는 User객체를 넣어주지만 데이터베이스 상으로는 User의 pk만 가지고 들어가는가?
 # API
 
