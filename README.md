@@ -1,6 +1,6 @@
 스프링부트 2.7.6 사용
 # ERD
-![image](https://user-images.githubusercontent.com/117061586/208839108-ce0ea256-fc69-4c3c-959d-ecc4e8816fe7.png)
+![image](https://user-images.githubusercontent.com/117061586/209420986-e353b03b-6c47-47bf-881c-e3368c412b8c.png)
 
 Post 엔티티에서 @ManyToOne해준 User 객체는 save할때 코드상으로는 User객체를 넣어주지만 데이터베이스 상으로는 User의 pk만 가지고 저장된다?
 # API
