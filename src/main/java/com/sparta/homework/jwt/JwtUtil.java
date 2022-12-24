@@ -17,6 +17,8 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 
+import static com.sparta.homework.entity.UserRoleEnum.ADMIN;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -93,5 +95,16 @@ public class JwtUtil {
         }
         throw new NotLoginException();
     }
-
+    public boolean isAdminToken(String token) {
+        Claims claims;
+        if (token != null) {
+            if (validateToken(token)) {
+                claims = getUserInfoFromToken(token);
+                return ((claims.get("auth").toString()).equals(ADMIN.toString()));
+            } else {
+                throw new InvalidTokenException();
+            }
+        }
+        throw new NotLoginException();
+    }
 }
