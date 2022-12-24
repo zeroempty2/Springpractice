@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
-import static com.sparta.homework.entity.UserRoleEnum.ADMIN;
-
 @Getter
 @NoArgsConstructor
 @Entity(name = "users")
