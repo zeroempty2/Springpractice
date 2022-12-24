@@ -1,6 +1,7 @@
 package com.sparta.homework.controller;
 
 import com.sparta.homework.dto.CommentRequestDto;
+import com.sparta.homework.exception.exceptions.IsNotAdminTokenException;
 import com.sparta.homework.jwt.JwtUtil;
 import com.sparta.homework.responseMessageData.DefaultRes;
 import com.sparta.homework.service.CommentService;
@@ -22,7 +23,7 @@ public class CommentController {
     private final CommentService commentService;
     private final JwtUtil jwtUtil;
     private final DefaultRes defaultRes;
-    @PostMapping("/comment")
+    @PostMapping("/comments")
     @ApiImplicitParam(name = "id", value = "게시글 id",dataTypeClass = Integer.class)
     @ApiOperation(value = "댓글 작성", notes = "댓글을 작성한다.")
     public CommentRequestDto addComment(@RequestBody CommentRequestDto requestDto, HttpServletRequest request, @PathVariable Long id) {
@@ -31,7 +32,7 @@ public class CommentController {
         return commentService.addComment(requestDto, userInfo, id);
         }
 
-    @PutMapping("/comment/{commentId}")
+    @PutMapping("/comments/{commentId}")
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "게시글 id",dataTypeClass = Integer.class),@ApiImplicitParam(name = "commentId", value = "댓글 id",dataTypeClass = Integer.class)})
     @ApiOperation(value = "댓글 수정", notes = "댓글을 수정한다.")
     public CommentRequestDto updateComment(@RequestBody CommentRequestDto requestDto, HttpServletRequest request, @PathVariable Long id, @PathVariable Long commentId){
@@ -39,7 +40,17 @@ public class CommentController {
         String userInfo = jwtUtil.isValidToken(token);
         return commentService.updateComment(commentId,id,requestDto,userInfo);
         }
-    @DeleteMapping("/comment/{commentId}")
+    @PutMapping("/admin/{commentId}")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "게시글 id",dataTypeClass = Integer.class),@ApiImplicitParam(name = "commentId", value = "댓글 id",dataTypeClass = Integer.class)})
+    @ApiOperation(value = "댓글 수정(관리자)", notes = "댓글을 관리자 권한으로 유저 확인 없이 수정한다.")
+    public CommentRequestDto AdminUpdateComment(@RequestBody CommentRequestDto requestDto, HttpServletRequest request, @PathVariable Long id, @PathVariable Long commentId){
+        String token = jwtUtil.resolveToken(request);
+        if(jwtUtil.isAdminToken(token)){
+            return commentService.AdminUpdateComment(commentId,id,requestDto);
+        }
+        throw new IsNotAdminTokenException();
+    }
+    @DeleteMapping("/comments/{commentId}")
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "게시글 id",dataTypeClass = Integer.class),@ApiImplicitParam(name = "commentId", value = "댓글 id",dataTypeClass = Integer.class)})
     @ApiOperation(value = "댓글 삭제", notes = "댓글을 삭제한다.")
     public ResponseEntity<DefaultRes> deleteComment(HttpServletRequest request, @PathVariable Long id, @PathVariable Long commentId){
@@ -48,4 +59,15 @@ public class CommentController {
         commentService.deleteComment(commentId,id,userInfo);
         return defaultRes.deleteOK();
         }
+    @DeleteMapping("/admin/{commentId}")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "게시글 id",dataTypeClass = Integer.class),@ApiImplicitParam(name = "commentId", value = "댓글 id",dataTypeClass = Integer.class)})
+    @ApiOperation(value = "댓글 삭제(관리자)", notes = "댓글을 관리자 권한으로 유저 확인 없이 삭제한다.")
+    public ResponseEntity<DefaultRes> AdminDeleteComment(HttpServletRequest request, @PathVariable Long id, @PathVariable Long commentId){
+        String token = jwtUtil.resolveToken(request);
+        if(jwtUtil.isAdminToken(token)) {
+            commentService.adminDeleteComment(commentId, id);
+            return defaultRes.deleteOK();
+        }
+        throw new IsNotAdminTokenException();
+    }
 }

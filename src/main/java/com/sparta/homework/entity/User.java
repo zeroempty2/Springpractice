@@ -32,7 +32,7 @@ public class User {
         this.password = password;
         this.role = role;
     }
-    public boolean isADMIN(){
-    return getRole().equals(ADMIN);
-    }
+//    public boolean isADMIN(){
+//    return getRole().equals(ADMIN);
+//    }
 }

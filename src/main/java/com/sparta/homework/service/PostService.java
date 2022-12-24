@@ -27,11 +27,10 @@ public class PostService {
     private final UserRepository userRepository;
 
     public PostRequestDto createPost(PostRequestDto requestDto, String userInfo) {
-            User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
-
-            postRepository.saveAndFlush(new Post(requestDto, user));
-            return requestDto;
-        }
+        User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
+        postRepository.saveAndFlush(new Post(requestDto, user));
+        return requestDto;
+    }
 
 
     @Transactional(readOnly = true)
@@ -40,14 +39,14 @@ public class PostService {
 
         List<PostResponseDto> postResponse = new ArrayList<>();
 
-        for (Post response : posts){
+        for (Post response : posts) {
             List<CommentResponseDto> comments = new ArrayList<>();
             List<Comment> commentList = response.getComments();
 
-            for(Comment comment : commentList){
+            for (Comment comment : commentList) {
                 comments.add(comment.getResponseComment(comment));
             }
-            postResponse.add(response.getResponsePost(response,comments));
+            postResponse.add(response.getResponsePost(response, comments));
         }
         return postResponse;
     }
@@ -58,46 +57,46 @@ public class PostService {
 
         List<CommentResponseDto> comments = new ArrayList<>();
         List<Comment> commentList = post.getComments();
-        for(Comment comment : commentList){
+        for (Comment comment : commentList) {
             comments.add(comment.getResponseComment(comment));
         }
-        return post.getResponsePost(post,comments);
+        return post.getResponsePost(post, comments);
     }
 
     @Transactional
-    public PostRequestDto update(Long id, PostRequestDto requestDto, String userInfo) {
+    public PostRequestDto updatePost(Long id, PostRequestDto requestDto, String userInfo) {
+        User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
+        Post post = postRepository.findById(id).orElseThrow(NotFoundPostException::new);
 
-            User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
-
-            Post post = postRepository.findById(id).orElseThrow(NotFoundPostException::new);
-
-            if(user.isADMIN()){
-                post.update(requestDto);
-                return requestDto;
-            }
-            else if (post.isWriter(user)) {
-                post.update(requestDto);
-                return requestDto;
-            } else {
-                throw new InvalidWriterException();
-            }
+        if (post.isWriter(user)) {
+            post.update(requestDto);
+            return requestDto;
+        } else {
+            throw new InvalidWriterException();
         }
+    }
+
+    @Transactional
+    public PostRequestDto adminUpdatePost(Long id, PostRequestDto requestDto) {
+        Post post = postRepository.findById(id).orElseThrow(NotFoundPostException::new);
+        post.update(requestDto);
+        return requestDto;
+    }
 
 
     @Transactional
-    public void delete(Long id, String userInfo) {
-            User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
-
-            Post post = postRepository.findById(id).orElseThrow(NotFoundPostException::new);
-
-            if(user.isADMIN()){
-                postRepository.deleteById(id);
-            }
-            else if (post.isWriter(user)) {
-                postRepository.deleteById(id);
-            } else {
-                throw new InvalidWriterException();
-            }
+    public void deletePost(Long id, String userInfo) {
+        User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
+        Post post = postRepository.findById(id).orElseThrow(NotFoundPostException::new);
+        if (post.isWriter(user)) {
+            postRepository.deleteById(id);
+        } else {
+            throw new InvalidWriterException();
         }
+    }
+    @Transactional
+    public void adminDeletePost(Long id) {
+        postRepository.findById(id).orElseThrow(NotFoundPostException::new);
+        postRepository.deleteById(id);
+    }
 }
-

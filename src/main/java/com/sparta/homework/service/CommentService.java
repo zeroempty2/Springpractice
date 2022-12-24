@@ -45,11 +45,7 @@ public class CommentService {
 
             Comment comment = commentRepository.findById(commentId).orElseThrow(NotFoundCommentException::new);
 
-            if(user.isADMIN()){
-                comment.update(requestDto);
-                return requestDto;
-            }
-            else if (comment.isWriter(user)) {
+            if (comment.isWriter(user)) {
                 comment.update(requestDto);
                 return requestDto;
             } else {
@@ -57,23 +53,31 @@ public class CommentService {
             }
         }
     @Transactional
+    public CommentRequestDto AdminUpdateComment(Long commentId, Long id, CommentRequestDto requestDto) {
+        postRepository.findById(id).orElseThrow(NotFoundPostException::new);
+        Comment comment = commentRepository.findById(commentId).orElseThrow(NotFoundCommentException::new);
+        comment.update(requestDto);
+        return requestDto;
+    }
+    @Transactional
     public void deleteComment(Long commentId, Long id, String userInfo) {
             User user = userRepository.findByUsername(userInfo).orElseThrow(NotFoundUserException::new);
-
             postRepository.findById(id).orElseThrow(NotFoundPostException::new);
-
             Comment comment = commentRepository.findByIdAndPost_Id(commentId,id).orElseThrow(NotFoundCommentException::new);
-
-            if(user.isADMIN()){
-                commentRepository.delete(comment);
-            }
-            else if (comment.isWriter(user)) {
+          if (comment.isWriter(user)) {
                 commentRepository.delete(comment);
             } else {
                 throw new InvalidWriterException();
             }
         }
+    @Transactional
+    public void adminDeleteComment(Long commentId, Long id) {
+        postRepository.findById(id).orElseThrow(NotFoundPostException::new);
+        Comment comment = commentRepository.findByIdAndPost_Id(commentId,id).orElseThrow(NotFoundCommentException::new);
+        commentRepository.delete(comment);
     }
+}
+
 
 
 
