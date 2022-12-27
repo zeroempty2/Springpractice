@@ -3,6 +3,7 @@ package com.sparta.homework.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sparta.homework.entity.Comment;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 
@@ -20,6 +21,10 @@ public class CommentResponseDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @ApiModelProperty(example = "수정일")
     private LocalDateTime modifiedAt;
+
+    public static CommentResponseDto valueOf(Comment comments) {
+        return new CommentResponseDto(comments.getCreatedAt(),comments.getModifiedAt(),comments.getUser().getUsername(),comments.getComment());
+    }
 
     public CommentResponseDto(LocalDateTime createdAt, LocalDateTime modifiedAt, String username, String comment) {
         this.createdAt = createdAt;

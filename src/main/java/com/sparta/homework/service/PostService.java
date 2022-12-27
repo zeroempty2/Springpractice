@@ -36,17 +36,15 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<PostResponseDto> getPosts() {
         List<Post> posts = postRepository.findAllByOrderByCreatedAtDesc();
-
         List<PostResponseDto> postResponse = new ArrayList<>();
-
         for (Post response : posts) {
             List<CommentResponseDto> comments = new ArrayList<>();
             List<Comment> commentList = response.getComments();
 
             for (Comment comment : commentList) {
-                comments.add(comment.getResponseComment(comment));
+                comments.add(CommentResponseDto.valueOf(comment));
             }
-            postResponse.add(response.getResponsePost(response, comments));
+            postResponse.add(PostResponseDto.valueOf(response,comments));
         }
         return postResponse;
     }
@@ -54,13 +52,13 @@ public class PostService {
     @Transactional(readOnly = true)
     public PostResponseDto getSelectPosts(Long id) {
         Post post = postRepository.findById(id).orElseThrow(NotFoundPostException::new);
+        List<Comment> commentList = post.getComments();
 
         List<CommentResponseDto> comments = new ArrayList<>();
-        List<Comment> commentList = post.getComments();
         for (Comment comment : commentList) {
-            comments.add(comment.getResponseComment(comment));
+            comments.add(CommentResponseDto.valueOf(comment));
         }
-        return post.getResponsePost(post, comments);
+        return PostResponseDto.valueOf(post,comments);
     }
 
     @Transactional

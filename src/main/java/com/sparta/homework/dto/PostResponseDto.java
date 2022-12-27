@@ -1,6 +1,7 @@
 package com.sparta.homework.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sparta.homework.entity.Post;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import java.time.LocalDateTime;
@@ -22,6 +23,9 @@ public class PostResponseDto {
     private String username;
     @ApiModelProperty(example = "댓글 리스트")
     List<CommentResponseDto> comments;
+    public static PostResponseDto valueOf(Post post, List<CommentResponseDto> comments) {
+        return new PostResponseDto(post.getContents(),post.getTitle(),post.getCreatedAt(),post.getModifiedAt(),post.getUser().getUsername(), comments);
+    }
 
     public PostResponseDto(String contents, String title, LocalDateTime createdAt, LocalDateTime modifiedAt, String username, List<CommentResponseDto> comments) {
         this.contents = contents;
