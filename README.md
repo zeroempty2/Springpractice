@@ -1,4 +1,5 @@
 스프링부트 2.7.6 사용
+JDK18
 # ERD
 ![image](https://user-images.githubusercontent.com/117061586/209421252-88fec28d-a5ed-4d17-8375-e9f4feaa8334.png)
 
