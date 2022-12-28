@@ -7,16 +7,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class ResponseMessageService {
     public ResponseEntity<DefaultRes> deleteOk(){
-        DefaultRes defaultRes = DefaultRes.valueOf(StatusCode.OK,ResponseMessage.DELETE_SUCCESS,true);
+        DefaultRes defaultRes = DefaultRes.valueOf(ResponseMessages.DELETE_SUCCESS);
         return new ResponseEntity<>(defaultRes, HttpStatus.OK);
     }
 
     public ResponseEntity<DefaultRes> signupOk(){
-        DefaultRes defaultRes = DefaultRes.valueOf(StatusCode.OK,ResponseMessage.CREATED_USER,true);
+        DefaultRes defaultRes = DefaultRes.valueOf(ResponseMessages.CREATED_USER);
         return new ResponseEntity<>(defaultRes, HttpStatus.OK);
     }
     public ResponseEntity<DefaultRes> loginOk(){
-        DefaultRes defaultRes = DefaultRes.valueOf(StatusCode.OK,ResponseMessage.LOGIN_SUCCESS,true);
+        DefaultRes defaultRes = DefaultRes.valueOf(ResponseMessages.LOGIN_SUCCESS);
         return new ResponseEntity<>(defaultRes, HttpStatus.OK);
     }
 }

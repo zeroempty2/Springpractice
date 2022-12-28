@@ -9,8 +9,8 @@ public class DefaultRes {
     private String message;
     private boolean success;
 
-    public static DefaultRes valueOf(int statusCode, String message, boolean success){
-        return new DefaultRes(statusCode,message,success);
+    public static DefaultRes valueOf(ResponseMessages responseMessages){
+        return new DefaultRes(responseMessages.getStatusCode(), responseMessages.getMessage(), responseMessages.isSuccess());
     }
     public DefaultRes(int statusCode, String message, boolean success) {
         this.statusCode = statusCode;
