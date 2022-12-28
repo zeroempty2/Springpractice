@@ -4,7 +4,9 @@ import com.sparta.homework.exception.exceptions.*;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,12 +14,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
+
 
 @Slf4j
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class ExceptionController {
     private final ExceptionResponseService exceptionResponseService;
+    private final HttpHeaders headers;
 
     @ExceptionHandler(InvalidTokenException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -112,7 +117,8 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     private ResponseEntity<ExceptionResponse> expiredJwtTokenException(ExpiredJwtException e){
         log.info(e.getMessage());
+        headers.setContentType(new MediaType("application","json", StandardCharsets.UTF_8));
         ExceptionResponse exceptionResponse =  exceptionResponseService.getErrorResponse(Exception.EXPIRED_JWT_TOKEN);
-        return new ResponseEntity<>(exceptionResponse,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionResponse,headers,HttpStatus.BAD_REQUEST);
     }
 }
