@@ -2,7 +2,7 @@
 # ERD
 ![image](https://user-images.githubusercontent.com/117061586/209421252-88fec28d-a5ed-4d17-8375-e9f4feaa8334.png)
 
-Post 엔티티에서 @ManyToOne해준 User 객체는 save할때 코드상으로는 User객체를 넣어주지만 데이터베이스 상으로는 User의 pk만 가지고 저장된다?
+Post 엔티티에서 @ManyToOne해준 User 객체는 save할때 코드상으로는 User객체를 넣어주지만 데이터베이스 상으로는 User의 pk만 가지고 저장된다.
 # API
 
 스프링 부트 실행 후 http://localhost:8080/swagger-ui/index.html
@@ -23,4 +23,5 @@ Post 엔티티에서 @ManyToOne해준 User 객체는 save할때 코드상으로�
 - 의존관계 역전 원칙(은 상위 객체가 하위객체에 의지하지 않게 하는것이다(관계 역전). 위의 예시처럼 느슨한 결합을 하면 Cup이라는 상위 객체가 Water라는 하위 객체에 의존하지 않고 독립되게 된다.
 
 
-!!인증/인가 분리해보기
+!!exceptionHandle 리팩토링(DefaultRes이용해서 set안쓰고 출력, (정규님 코드 + https://velog.io/@kiiiyeon/%EC%8A%A4%ED%94%84%EB%A7%81-ExceptionHandler%EB%A5%BC-%ED%86%B5%ED%95%9C-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC) 해서 리팩토링 해보기)
+- 굳이 바꿀 필요없음. Exception마다 메세지를 설정해주고 싶었으면 설정하고 싶은 익셉션만 수정해주었으면 되나, 같은 illegalexception에 다른 메세지를 던져주고싶은 경우에는 각각의 클래스를 생성해야함.
