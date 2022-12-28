@@ -9,8 +9,8 @@ public class ExceptionResponse {
     private String message;
     private boolean success;
 
-    public static ExceptionResponse valueOf(int statusCode, String message, boolean success){
-        return new ExceptionResponse(statusCode, message, success);
+    public static ExceptionResponse valueOf(Exception exception){
+        return new ExceptionResponse(exception.getStatusCode(), exception.getMessage(), false);
     }
 
     public ExceptionResponse(int statusCode, String message, boolean success) {

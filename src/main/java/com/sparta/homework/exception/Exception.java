@@ -1,12 +1,14 @@
 package com.sparta.homework.exception;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@AllArgsConstructor
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Getter
 public enum Exception {
     BAD_REQUEST(400,"잘못된 접근입니다."),
+    NONE(400,"지정해주지 않은 유형의 MethodArgumentNotValidException 입니다."),
     INVALID_TOKEN(400,"토큰이 유효하지 않습니다."),
     INVALID_WRITER(403,"작성자만 수정/삭제할 수 있습니다. 관리자라면 관리자 url을 이용해 주십시오."),
     INVALID_USERNAME(400,"중복된 username입니다"),
