@@ -1,9 +1,11 @@
 package com.sparta.homework.exception;
 
 import com.sparta.homework.exception.exceptions.*;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -104,5 +106,13 @@ public class ExceptionController {
         log.warn("MethodArgumentNotValidException 발생 url:{}, trace:{}",request.getRequestURI(), e.getStackTrace());
         log.info(e.getMessage());
         return exceptionResponseService.makeMethodArgumentNotValidExceptionResponse(e.getBindingResult());
+    }
+    //test
+    @ExceptionHandler(ExpiredJwtException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    private ResponseEntity<ExceptionResponse> expiredJwtTokenException(ExpiredJwtException e){
+        log.info(e.getMessage());
+        ExceptionResponse exceptionResponse =  exceptionResponseService.getErrorResponse(Exception.EXPIRED_JWT_TOKEN.getStatusCode(),Exception.EXPIRED_JWT_TOKEN.getMessage());
+        return new ResponseEntity<>(exceptionResponse,HttpStatus.BAD_REQUEST);
     }
 }
