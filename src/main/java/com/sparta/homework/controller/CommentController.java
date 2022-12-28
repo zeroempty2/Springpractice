@@ -4,6 +4,7 @@ import com.sparta.homework.dto.CommentRequestDto;
 import com.sparta.homework.exception.exceptions.IsNotAdminTokenException;
 import com.sparta.homework.jwt.JwtUtil;
 import com.sparta.homework.responseMessageData.DefaultRes;
+import com.sparta.homework.responseMessageData.ResponseMessageService;
 import com.sparta.homework.service.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 public class CommentController {
     private final CommentService commentService;
     private final JwtUtil jwtUtil;
-    private final DefaultRes defaultRes;
+    private final ResponseMessageService responseMessageService;
     @PostMapping("/comments")
     @ApiImplicitParam(name = "id", value = "게시글 id",dataTypeClass = Integer.class)
     @ApiOperation(value = "댓글 작성", notes = "댓글을 작성한다.")
@@ -57,7 +58,7 @@ public class CommentController {
         String token = jwtUtil.resolveToken(request);
         String userInfo = jwtUtil.isValidToken(token);
         commentService.deleteComment(commentId,id,userInfo);
-        return defaultRes.deleteOK();
+        return responseMessageService.deleteOk();
         }
     @DeleteMapping("/admin/{commentId}")
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "게시글 id",dataTypeClass = Integer.class),@ApiImplicitParam(name = "commentId", value = "댓글 id",dataTypeClass = Integer.class)})
@@ -66,7 +67,7 @@ public class CommentController {
         String token = jwtUtil.resolveToken(request);
         if(jwtUtil.isAdminToken(token)) {
             commentService.adminDeleteComment(commentId, id);
-            return defaultRes.deleteOK();
+            return responseMessageService.deleteOk();
         }
         throw new IsNotAdminTokenException();
     }

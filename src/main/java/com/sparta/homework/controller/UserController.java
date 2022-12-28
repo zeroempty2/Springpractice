@@ -3,6 +3,7 @@ package com.sparta.homework.controller;
 import com.sparta.homework.dto.LoginRequestDto;
 import com.sparta.homework.dto.SignupRequestDto;
 import com.sparta.homework.responseMessageData.DefaultRes;
+import com.sparta.homework.responseMessageData.ResponseMessageService;
 import com.sparta.homework.service.UserService;
 
 import io.swagger.annotations.Api;
@@ -23,14 +24,14 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
-    private final DefaultRes defaultRes;
+    private final ResponseMessageService responseMessageService;
 
 
     @PostMapping("/signup")
     @ApiOperation(value = "계정 생성", notes = "계정을 생성한다.")
     public ResponseEntity<DefaultRes> signup(@Valid @RequestBody SignupRequestDto signupRequestDto) {
         userService.signup(signupRequestDto);
-        return defaultRes.signupOK();
+        return responseMessageService.signupOk();
     }
 
     @ResponseBody
@@ -38,6 +39,6 @@ public class UserController {
     @ApiOperation(value = "로그인", notes = "로그인을 하고 헤더에 AUTHORIZATION을 반환한다.")
     public ResponseEntity<DefaultRes> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         userService.login(loginRequestDto, response);
-        return defaultRes.loginOK();
+        return responseMessageService.loginOk();
     }
 }

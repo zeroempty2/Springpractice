@@ -5,6 +5,7 @@ import com.sparta.homework.dto.PostResponseDto;
 import com.sparta.homework.exception.exceptions.IsNotAdminTokenException;
 import com.sparta.homework.jwt.JwtUtil;
 import com.sparta.homework.responseMessageData.DefaultRes;
+import com.sparta.homework.responseMessageData.ResponseMessageService;
 import com.sparta.homework.service.PostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -22,7 +23,7 @@ import java.util.List;
 @Api(tags = {"게시글 CRUD api"})
 public class PostController {
     private final PostService postService;
-    private final DefaultRes defaultRes;
+    private final ResponseMessageService responseMessageService;
     private final JwtUtil jwtUtil;
 
     @PostMapping("/post")
@@ -68,7 +69,7 @@ public class PostController {
         String token = jwtUtil.resolveToken(request);
         String userInfo = jwtUtil.isValidToken(token);
         postService.deletePost(id,userInfo);
-        return defaultRes.deletePostOk();
+        return responseMessageService.deleteOk();
         }
     @DeleteMapping("/admin/{id}")
     @ApiImplicitParam(name = "id", value = "게시글 id",dataTypeClass = Integer.class)
@@ -77,7 +78,7 @@ public class PostController {
         String token = jwtUtil.resolveToken(request);
         if(jwtUtil.isAdminToken(token)){
             postService.adminDeletePost(id);
-            return defaultRes.deletePostOk();
+            return responseMessageService.deleteOk();
         }
         throw new IsNotAdminTokenException();
 
